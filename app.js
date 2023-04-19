@@ -45,7 +45,25 @@ async function insertItems() {
   // mongoose.connection.close();
 }
 
-insertItems();
+// insertItems();
+
+
+
+
+async function findItems() {
+  try {
+    const items = await Item.find();
+    items.forEach(function (listItem) {
+      console.log(listItem.name);
+    })
+    // console.log(fruits);
+  } catch (err) {
+    console.log(err);
+  }
+  // mongoose.connection.close();
+}
+
+findItems();
 
 
 
