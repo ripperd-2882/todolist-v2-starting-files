@@ -34,36 +34,64 @@ const item3 = new Item({
 const defaultItems = [item1, item2, item3];
 
 
+// ----------------------------------------------------------------------------------------------------------------------------------------------------
 //insert Many Items
-async function insertItems() {
-  try {
-    const item = await Item.insertMany(defaultItems);
-    console.log("Successfully Inserted");
-  } catch (err) {
-    console.log(err);
-  }
-  // mongoose.connection.close();
-}
+// async function insertItems() {
+//   try {
+//     const item = await Item.insertMany(defaultItems);
+//     console.log("Successfully Inserted");
+//   } catch (err) {
+//     console.log(err);
+//   }
+//   // mongoose.connection.close();
+// }
 
 // insertItems();
+// ----------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
-
-
-// Item.find({}).then(function (foundItems) {
+// Insert Many
+// Item.insertMany(defaultItems).then(function () {
 //   // res.render("list", { listTitle: "Today", newListItems: foundItems });
-//   console.log(foundItems);
+//   console.log("Inserted");
 // })
 //   .catch(function (err) {
 //     console.log(err);
 //   });
 
 
+
+// Delete Many
+// Item.deleteMany({name:"A"}).then(function () {
+//   // res.render("list", { listTitle: "Today", newListItems: foundItems });
+//   console.log("Deleted");
+// })
+//   .catch(function (err) {
+//     console.log(err);
+//   });
+
+
+
+
+
 app.get("/", function (req, res) {
 
   Item.find({}).then(function (foundItems) {
-    res.render("list", { listTitle: "Today", newListItems: foundItems });
+
+    if (foundItems.length === 0) {
+      Item.insertMany(defaultItems).then(function () {
+        // res.render("list", { listTitle: "Today", newListItems: foundItems });
+        console.log("Inserted");
+      })
+        .catch(function (err) {
+          console.log(err);
+        });
+        res.redirect();
+    }
+    else {
+      res.render("list", { listTitle: "Today", newListItems: foundItems });
+    }
     // console.log(foundItems);
   })
     .catch(function (err) {
