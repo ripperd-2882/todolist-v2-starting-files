@@ -56,11 +56,9 @@ async function findItems() {
     items.forEach(function (listItem) {
       console.log(listItem.name);
     })
-    // console.log(fruits);
   } catch (err) {
     console.log(err);
   }
-  // mongoose.connection.close();
 }
 
 findItems();
