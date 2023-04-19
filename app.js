@@ -50,28 +50,30 @@ async function insertItems() {
 
 
 
-async function findItems() {
-  try {
-    const items = await Item.find();
-    items.forEach(function (listItem) {
-      console.log(listItem.name);
-    })
-  } catch (err) {
-    console.log(err);
-  }
-}
 
-findItems();
-
-
+// Item.find({}).then(function (foundItems) {
+//   // res.render("list", { listTitle: "Today", newListItems: foundItems });
+//   console.log(foundItems);
+// })
+//   .catch(function (err) {
+//     console.log(err);
+//   });
 
 
 app.get("/", function (req, res) {
 
-
-  res.render("list", { listTitle: "Today", newListItems: items });
+  Item.find({}).then(function (foundItems) {
+    res.render("list", { listTitle: "Today", newListItems: foundItems });
+    // console.log(foundItems);
+  })
+    .catch(function (err) {
+      console.log(err);
+    });
 
 });
+
+
+
 
 app.post("/", function (req, res) {
 
