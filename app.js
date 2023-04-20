@@ -108,7 +108,7 @@ app.get("/", function (req, res) {
 });
 
 app.get("/:customListName", function (req, res) {
-  if (req.params.customListName == "favicon.ico") return;   //prevents favicon.ico list to be inserted
+  if (req.params.customListName == "favicon.ico") return;   //prevents favicon.ico list creation
   const customListName = _.capitalize(req.params.customListName);
 
   List.findOne({ name: customListName }).then(function (foundList) {
@@ -120,7 +120,7 @@ app.get("/:customListName", function (req, res) {
       });
 
 
-      // Prevents duplicate Lists
+      // Prevents duplicate Lists creation
       list.save().then(function(){
         res.redirect("/" + customListName);
       });
